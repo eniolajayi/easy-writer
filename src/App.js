@@ -6,11 +6,12 @@ import { createEditor } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
 
 const App = () => {
+  // We create state for what we pass into editor
+  const [value, setValue] = useState([]);
   // then we create a slate Editor object that won't change across renders
   const editor = useMemo(() => {
     withReact(createEditor());
   }, []);
-
   return <div>Sup</div>;
 };
 export default App;
