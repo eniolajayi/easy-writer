@@ -12,6 +12,15 @@ const App = () => {
   const editor = useMemo(() => {
     withReact(createEditor());
   }, []);
-  return <div>Sup</div>;
+  // Render slate context
+  return (
+    <Slate
+      editor={editor}
+      value={value}
+      onChange={(newValue) => {
+        setValue(newValue);
+      }}
+    />
+  );
 };
 export default App;
