@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
 
@@ -18,15 +19,17 @@ const App = () => {
   // Render slate context
   // then add editable component inside context
   return (
-    <Slate
-      editor={editor}
-      value={value}
-      onChange={(newValue) => {
-        setValue(newValue);
-      }}
-    >
-      <Editable></Editable>
-    </Slate>
+    <Container>
+      <Slate
+        editor={editor}
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <Editable></Editable>
+      </Slate>
+    </Container>
   );
 };
 export default App;
