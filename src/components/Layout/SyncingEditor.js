@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
 
@@ -11,6 +11,8 @@ const SyncingEditor = () => {
   const [value, setValue] = useState(initialValue);
   // then we create a slate Editor object that won't change across renders
   const editor = useMemo(() => withReact(createEditor()), []);
+  const editorRef = useRef(null);
+  const remote = useRef(null);
   // Render slate context
   // then add editable component inside context
   return (
@@ -18,6 +20,7 @@ const SyncingEditor = () => {
       editor={editor}
       value={value}
       onChange={(newValue) => {
+        console.log("operation");
         setValue(newValue);
       }}
     >
