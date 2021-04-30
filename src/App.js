@@ -14,9 +14,7 @@ const App = () => {
     },
   ]);
   // then we create a slate Editor object that won't change across renders
-  const editor = useMemo(() => {
-    withReact(createEditor());
-  }, []);
+  const editor = useMemo(() => withReact(createEditor()), []);
   // Render slate context
   // then add editable component inside context
   return (
