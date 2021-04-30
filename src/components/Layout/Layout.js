@@ -4,10 +4,12 @@ import AppNavBar from "./AppNavBar";
 
 const Layout = (props) => {
   return (
-    <Container>
+    <>
       <AppNavBar />
-      <div className="wrapper p-4">{props.children}</div>
-    </Container>
+      <Container>
+        <div className="wrapper p-4">{props.children}</div>
+      </Container>
+    </>
   );
 };
 
