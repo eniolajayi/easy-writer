@@ -17,10 +17,10 @@ const SyncingEditor = () => {
   // then add editable component inside context
   return (
     <Slate
+      ref={editorRef}
       editor={editor}
       value={value}
       onChange={(newValue) => {
-        console.log("operation");
         setValue(newValue);
       }}
     >
