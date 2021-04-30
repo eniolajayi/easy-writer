@@ -13,6 +13,7 @@ const App = () => {
     withReact(createEditor());
   }, []);
   // Render slate context
+  // then add editable component inside context
   return (
     <Slate
       editor={editor}
@@ -20,7 +21,9 @@ const App = () => {
       onChange={(newValue) => {
         setValue(newValue);
       }}
-    />
+    >
+      <Editable></Editable>
+    </Slate>
   );
 };
 export default App;
