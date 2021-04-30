@@ -2,11 +2,11 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import AppNavBar from "./AppNavBar";
 
-const Layout = (children) => {
+const Layout = (props) => {
   return (
     <Container>
       <AppNavBar />
-      {children}
+      {props.children}
     </Container>
   );
 };
