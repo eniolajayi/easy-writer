@@ -41,7 +41,7 @@ const SyncingEditor = () => {
           return (
             o.type !== "set_selection" &&
             o.type !== "set_value" &&
-            (!o.data || !o.data.has("source"))
+            (!o.data || !o.data.source)
           );
         });
         // add the corresponding source (where the operation is coming from)
