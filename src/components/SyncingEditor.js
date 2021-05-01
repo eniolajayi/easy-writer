@@ -20,6 +20,9 @@ const SyncingEditor = ({ groupId }) => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
+    socket.once("init-value", (value) => {
+      setValue(value);
+    });
     socket.on("new-remote-operations", (data) => {
       const { editorId, operations } = data;
       if (id.current !== editorId) {
@@ -28,6 +31,9 @@ const SyncingEditor = ({ groupId }) => {
         remote.current = false;
       }
     });
+    return () => {
+      socket.off("new-remote-operations");
+    };
   }, [editor]);
 
   return (
@@ -55,6 +61,7 @@ const SyncingEditor = ({ groupId }) => {
           socket.emit("new-operations", {
             editorId: id.current,
             operations: opsWithSource,
+            value: opsWithSource,
           });
         }
       }}
