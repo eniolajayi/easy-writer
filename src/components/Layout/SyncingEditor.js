@@ -1,14 +1,12 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
-import Mitt from "mitt";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
 import { initialValue } from "../../slateInitialValue";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:4000");
-const emitter = new Mitt();
 
 const SyncingEditor = () => {
   // We create state for what we pass into editor
@@ -22,7 +20,7 @@ const SyncingEditor = () => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
-    socket.on("new-operations", (editorId, operations) => {
+    socket.on("new-remote-operations", (editorId, operations) => {
       if (id.current !== editorId) {
         remote.current = true;
         JSON.parse(operations).forEach((operation) => editor.apply(operation));
@@ -53,7 +51,10 @@ const SyncingEditor = () => {
         // Don't emit if the array is empty and the change
         // was local to the editor then we emit the change
         if (opsWithSource.length && !remote.current) {
-          emitter.emit(id.current, opsWithSource);
+          socket.emit("new-operations", {
+            editorId: id.current,
+            operations: JSON.stringify(opsWithSource),
+          });
         }
       }}
     >
