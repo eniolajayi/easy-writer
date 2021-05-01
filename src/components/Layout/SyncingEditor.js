@@ -11,6 +11,9 @@ const emitter = new Mitt();
 const SyncingEditor = () => {
   // We create state for what we pass into editor
   const [value, setValue] = useState(initialValue);
+  // create id to identify each editor
+  // (we can know which editor is emitting an event)
+  const id = useRef(`${Date.now()}ESYDCS`);
   // then we create a slate Editor object that won't change across renders
   const editor = useMemo(() => withReact(createEditor()), []);
   const editorRef = useRef(null);
@@ -45,7 +48,7 @@ const SyncingEditor = () => {
         });
         // Don't emit if the array is empty
         if (opsWithSource.length) {
-          emitter.emit("something", opsWithSource);
+          emitter.emit(id.current, opsWithSource);
         }
       }}
     >
