@@ -6,6 +6,8 @@ const App = () => {
   return (
     <Layout>
       <SyncingEditor />
+      {/* Test */}
+      <SyncingEditor />
     </Layout>
   );
 };
