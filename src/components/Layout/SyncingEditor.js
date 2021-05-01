@@ -17,15 +17,17 @@ const SyncingEditor = () => {
   // then we create a slate Editor object that won't change across renders
   const editor = useMemo(() => withReact(createEditor()), []);
   const editorRef = useRef(null);
-  //   const remote = useRef(null);
+  const remote = useRef(false);
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
     emitter.on("*", (type, operations) => {
       if (id.current !== type) {
+        remote.current = true;
         operations.forEach((operation) =>
           editor.current.applyOperation(operation)
         );
+        remote.current = false;
       }
     });
   }, [editor]);
@@ -50,8 +52,9 @@ const SyncingEditor = () => {
         const opsWithSource = filteredOps.map((o) => {
           return { ...o, data: { source: "one" } };
         });
-        // Don't emit if the array is empty
-        if (opsWithSource.length) {
+        // Don't emit if the array is empty and the change
+        // was local to the editor then we emit the change
+        if (opsWithSource.length && !remote.current) {
           emitter.emit(id.current, opsWithSource);
         }
       }}
