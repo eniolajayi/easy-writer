@@ -21,8 +21,10 @@ const SyncingEditor = () => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
-    emitter.on("*", () => {
-      console.log("change happened");
+    emitter.on("*", (type) => {
+      if (id.current !== type) {
+        console.log("change happened in other editor");
+      }
     });
   }, []);
 
