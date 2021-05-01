@@ -23,9 +23,7 @@ const SyncingEditor = () => {
     emitter.on("*", (type, operations) => {
       if (id.current !== type) {
         remote.current = true;
-        operations.forEach((operation) =>
-          editor.current.applyOperation(operation)
-        );
+        operations.forEach((operation) => editor.apply(operation));
         remote.current = false;
       }
     });
