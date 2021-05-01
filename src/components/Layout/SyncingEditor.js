@@ -63,4 +63,14 @@ const SyncingEditor = () => {
   );
 };
 
+/**
+ * Basically whats happening with the sockets
+ * is whenever a change is made in the editor
+ * it is going to emit a change to the server
+ *
+ * then the server is going to listen for those
+ * changes and then it will emit a remote change
+ * which will then be broadcasted to all editor
+ * instances
+ */
 export default SyncingEditor;
