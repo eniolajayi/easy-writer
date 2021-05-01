@@ -21,12 +21,14 @@ const SyncingEditor = () => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
-    emitter.on("*", (type) => {
+    emitter.on("*", (type, operations) => {
       if (id.current !== type) {
-        console.log("change happened in other editor");
+        operations.forEach((operation) =>
+          editor.current.applyOperation(operation)
+        );
       }
     });
-  }, []);
+  }, [editor]);
 
   return (
     <Slate
