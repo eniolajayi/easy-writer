@@ -5,7 +5,9 @@ import Mitt from "mitt";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
 import { initialValue } from "../../slateInitialValue";
+import io from "socket.io-client";
 
+const socket = io("http://localhost:4000");
 const emitter = new Mitt();
 
 const SyncingEditor = () => {
