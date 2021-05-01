@@ -7,7 +7,9 @@ const Layout = (props) => {
     <>
       <AppNavBar />
       <Container>
-        <div className="wrapper p-4">{props.children}</div>
+        <div className="page shadow mt-5 px-5 py-5 mx-auto">
+          {props.children}
+        </div>
       </Container>
     </>
   );
