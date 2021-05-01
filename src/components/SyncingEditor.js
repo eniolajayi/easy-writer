@@ -24,7 +24,7 @@ const SyncingEditor = ({ groupId }) => {
       const { editorId, operations } = data;
       if (id.current !== editorId) {
         remote.current = true;
-        JSON.parse(operations).forEach((operation) => editor.apply(operation));
+        operations.forEach((operation) => editor.apply(operation));
         remote.current = false;
       }
     });
@@ -54,7 +54,7 @@ const SyncingEditor = ({ groupId }) => {
         if (opsWithSource.length && !remote.current) {
           socket.emit("new-operations", {
             editorId: id.current,
-            operations: JSON.stringify(opsWithSource),
+            operations: opsWithSource,
           });
         }
       }}
