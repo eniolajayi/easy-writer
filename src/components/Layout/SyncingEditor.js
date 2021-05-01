@@ -16,7 +16,6 @@ const SyncingEditor = () => {
   const id = useRef(`${Date.now()}ESYDCS`);
   // then we create a slate Editor object that won't change across renders
   const editor = useMemo(() => withReact(createEditor()), []);
-  const editorRef = useRef(null);
   const remote = useRef(false);
   // Render slate context
   // then add editable component inside context
@@ -34,7 +33,6 @@ const SyncingEditor = () => {
 
   return (
     <Slate
-      ref={editorRef}
       editor={editor}
       value={value}
       onChange={(newValue) => {
