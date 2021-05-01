@@ -20,7 +20,8 @@ const SyncingEditor = () => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
-    socket.on("new-remote-operations", (editorId, operations) => {
+    socket.on("new-remote-operations", (data) => {
+      const { editorId, operations } = data;
       if (id.current !== editorId) {
         remote.current = true;
         JSON.parse(operations).forEach((operation) => editor.apply(operation));
