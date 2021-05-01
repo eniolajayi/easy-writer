@@ -3,7 +3,7 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createEditor } from "slate";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
-import { initialValue } from "../../slateInitialValue";
+import { initialValue } from "../slateInitialValue";
 import io from "socket.io-client";
 
 const socket = io("http://localhost:4000");
