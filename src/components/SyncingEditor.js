@@ -8,7 +8,7 @@ import io from "socket.io-client";
 
 const socket = io("http://localhost:4000");
 
-const SyncingEditor = () => {
+const SyncingEditor = ({ groupId }) => {
   // We create state for what we pass into editor
   const [value, setValue] = useState(initialValue);
   // create id to identify each editor
