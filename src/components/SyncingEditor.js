@@ -13,8 +13,9 @@ const SyncingEditor = ({ groupId }) => {
   // create id to identify each editor
   // (we can know which editor is emitting an event)
   const id = useRef(`${Date.now()}ESYDCS`);
-  // then we create a slate Editor object that won't change across renders
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editorRef = useRef();
+  if (!editorRef.current) editorRef.current = withReact(createEditor());
+  const editor = editorRef.current;
   const remote = useRef(false);
   // Render slate context
   // then add editable component inside context
