@@ -30,11 +30,15 @@ const SyncingEditor = ({ groupId }) => {
     //   };
     //   // Transforms.deselect(editor);
     // }
-    fetch(`http://localhost:4000/groups/${groupId}`).then((x) => {
-      x.json().then((data) => {
-        setValue(value);
+    fetch(`http://localhost:4000/groups/${groupId}`)
+      .then((x) => {
+        x.json().then((data) => {
+          setValue(data);
+        });
+      })
+      .catch(() => {
+        console.error("Could Not Fetch Initial Data");
       });
-    });
     const eventName = `new-remote-operations-${groupId}`;
     socket.on(eventName, (data) => {
       const { editorId, operations } = data;
