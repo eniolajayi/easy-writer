@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Import the Slate editor factory.
-import { createEditor, Transforms } from "slate";
+import { createEditor } from "slate";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
 import io from "socket.io-client";
