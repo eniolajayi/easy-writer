@@ -35,7 +35,8 @@ const SyncingEditor = ({ groupId }) => {
         setValue(value);
       });
     });
-    socket.on("new-remote-operations", (data) => {
+    const eventName = `new-remote-operations-${groupId}`;
+    socket.on(eventName, (data) => {
       const { editorId, operations } = data;
       if (id.current !== editorId) {
         remote.current = true;
@@ -44,7 +45,7 @@ const SyncingEditor = ({ groupId }) => {
       }
     });
     return () => {
-      socket.off("new-remote-operations");
+      socket.off(eventName);
     };
   }, [editor, groupId, value]);
 
@@ -74,6 +75,7 @@ const SyncingEditor = ({ groupId }) => {
             editorId: id.current,
             operations: opsWithSource,
             value: newValue,
+            groupId,
           });
         }
       }}
