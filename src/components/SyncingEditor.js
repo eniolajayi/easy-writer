@@ -9,7 +9,7 @@ const socket = io("http://localhost:4000");
 
 const SyncingEditor = ({ groupId }) => {
   // We create state for what we pass into editor
-  const [value, setValue] = useState();
+  const [value, setValue] = useState([]);
   // create id to identify each editor
   // (we can know which editor is emitting an event)
   const id = useRef(`${Date.now()}ESYDCS`);
