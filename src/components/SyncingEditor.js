@@ -60,7 +60,7 @@ const SyncingEditor = ({ groupId }) => {
           socket.emit("new-operations", {
             editorId: id.current,
             operations: opsWithSource,
-            value: opsWithSource,
+            value: newValue,
           });
         }
       }}
