@@ -47,7 +47,7 @@ const SyncingEditor = ({ groupId }) => {
     return () => {
       socket.off(eventName);
     };
-  }, [editor, groupId, value]);
+  }, [editor, groupId]);
 
   return (
     <Slate
