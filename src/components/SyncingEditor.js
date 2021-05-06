@@ -22,6 +22,7 @@ const SyncingEditor = ({ groupId }) => {
     socket.once("init-value", (value) => {
       setValue(value);
     });
+    socket.emit("send-value");
     socket.on("new-remote-operations", (data) => {
       const { editorId, operations } = data;
       if (id.current !== editorId) {
