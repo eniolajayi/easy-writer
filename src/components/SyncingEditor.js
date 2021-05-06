@@ -84,7 +84,7 @@ const SyncingEditor = ({ groupId }) => {
         }
       }}
     >
-      <Editable></Editable>
+      <Editable placeholder="Start typing here..."></Editable>
     </Slate>
   );
 };
