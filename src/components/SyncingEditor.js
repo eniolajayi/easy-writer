@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 // Import the Slate editor factory.
-import { createEditor } from "slate";
+import { createEditor, Transforms } from "slate";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
 import io from "socket.io-client";
@@ -21,6 +21,15 @@ const SyncingEditor = ({ groupId }) => {
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
+    // TODO bug : editor is crashing whenever you try to enter a new line
+    // start here :
+    // if (!value) {
+    //   editor.selection = {
+    //     anchor: { path: [0, 0], offset: 0 },
+    //     focus: { path: [0, 0], offset: 0 },
+    //   };
+    //   // Transforms.deselect(editor);
+    // }
     socket.once("init-value", (value) => {
       setValue(value);
     });
@@ -36,7 +45,7 @@ const SyncingEditor = ({ groupId }) => {
     return () => {
       socket.off("new-remote-operations");
     };
-  }, [editor]);
+  }, [editor, value]);
 
   return (
     <Slate
