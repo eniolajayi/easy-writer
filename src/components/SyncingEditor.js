@@ -13,6 +13,7 @@ const SyncingEditor = ({ groupId }) => {
   // create id to identify each editor
   // (we can know which editor is emitting an event)
   const id = useRef(`${Date.now()}ESYDCS`);
+  //
   const editorRef = useRef();
   if (!editorRef.current) editorRef.current = withReact(createEditor());
   const editor = editorRef.current;
@@ -54,7 +55,7 @@ const SyncingEditor = ({ groupId }) => {
         });
         // add the corresponding source (where the operation is coming from)
         const opsWithSource = filteredOps.map((o) => {
-          return { ...o, data: { source: "one" } };
+          return { ...o, data: { source: id.current } };
         });
         // Don't emit if the array is empty and the change
         // was local to the editor then we emit the change
