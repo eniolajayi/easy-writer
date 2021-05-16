@@ -1,34 +1,65 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
 // Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
-import { initialValue } from "../slateInitialValue";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+const getServerUrl = () => {
+  if (process.env.NODE_ENV !== "development") {
+    return process.env.REACT_APP_SERVER_URL;
+  } else {
+    return "http://localhost:4000";
+  }
+};
+const socket = io(getServerUrl());
 
 const SyncingEditor = ({ groupId }) => {
   // We create state for what we pass into editor
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState([]);
   // create id to identify each editor
   // (we can know which editor is emitting an event)
-  const id = useRef(`${Date.now()}ESYDCS`);
-  // then we create a slate Editor object that won't change across renders
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const id = useRef(`${uuidv4()}`);
+  //
+  const editorRef = useRef();
+  if (!editorRef.current) editorRef.current = withReact(createEditor());
+  const editor = editorRef.current;
   const remote = useRef(false);
   // Render slate context
   // then add editable component inside context
   useEffect(() => {
-    socket.on("new-remote-operations", (data) => {
+    // TODO bug : editor is crashing whenever you try to enter a new line
+    // start here :
+    // if (!value) {
+    //   editor.selection = {
+    //     anchor: { path: [0, 0], offset: 0 },
+    //     focus: { path: [0, 0], offset: 0 },
+    //   };
+    //   // Transforms.deselect(editor);
+    // }
+    fetch(`${getServerUrl()}/groups/${groupId}`)
+      .then((x) => {
+        x.json().then((data) => {
+          setValue(data);
+        });
+      })
+      .catch(() => {
+        console.error("Could Not Fetch Initial Data");
+      });
+    const eventName = `new-remote-operations-${groupId}`;
+    socket.on(eventName, (data) => {
       const { editorId, operations } = data;
       if (id.current !== editorId) {
         remote.current = true;
-        JSON.parse(operations).forEach((operation) => editor.apply(operation));
+        operations.forEach((operation) => editor.apply(operation));
         remote.current = false;
       }
     });
-  }, [editor]);
+    return () => {
+      socket.off(eventName);
+    };
+  }, [editor, groupId]);
 
   return (
     <Slate
@@ -47,19 +78,21 @@ const SyncingEditor = ({ groupId }) => {
         });
         // add the corresponding source (where the operation is coming from)
         const opsWithSource = filteredOps.map((o) => {
-          return { ...o, data: { source: "one" } };
+          return { ...o, data: { source: id.current } };
         });
         // Don't emit if the array is empty and the change
         // was local to the editor then we emit the change
         if (opsWithSource.length && !remote.current) {
           socket.emit("new-operations", {
             editorId: id.current,
-            operations: JSON.stringify(opsWithSource),
+            operations: opsWithSource,
+            value: newValue,
+            groupId,
           });
         }
       }}
     >
-      <Editable></Editable>
+      <Editable placeholder="Start typing here..."></Editable>
     </Slate>
   );
 };
