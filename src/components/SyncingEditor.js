@@ -6,7 +6,14 @@ import { createEditor } from "slate";
 import { Slate, Editable, withReact } from "slate-react";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:4000");
+const getServerUrl = () => {
+  if (process.env.NODE_ENV !== "development") {
+    return process.env.REACT_APP_SERVER_URL;
+  } else {
+    return "http://localhost:4000";
+  }
+};
+const socket = io(getServerUrl());
 
 const SyncingEditor = ({ groupId }) => {
   // We create state for what we pass into editor
@@ -31,7 +38,7 @@ const SyncingEditor = ({ groupId }) => {
     //   };
     //   // Transforms.deselect(editor);
     // }
-    fetch(`http://localhost:4000/groups/${groupId}`)
+    fetch(`${getServerUrl()}/groups/${groupId}`)
       .then((x) => {
         x.json().then((data) => {
           setValue(data);
