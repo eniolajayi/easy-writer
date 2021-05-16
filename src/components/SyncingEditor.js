@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 // Import the Slate editor factory.
 import { createEditor } from "slate";
 // Import the Slate components
@@ -12,7 +13,7 @@ const SyncingEditor = ({ groupId }) => {
   const [value, setValue] = useState([]);
   // create id to identify each editor
   // (we can know which editor is emitting an event)
-  const id = useRef(`${Date.now()}ESYDCS`);
+  const id = useRef(`${uuidv4()}`);
   //
   const editorRef = useRef();
   if (!editorRef.current) editorRef.current = withReact(createEditor());
