@@ -1,4 +1,4 @@
-# EasyDocs
+# EasyWriter
 
 A simple document Editor using Slate.js with multiedit features.
 work on the same document with members in your group 😎
