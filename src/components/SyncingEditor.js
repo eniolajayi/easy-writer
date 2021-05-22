@@ -88,7 +88,7 @@ const SyncingEditor = ({ groupId }) => {
   };
 
   return (
-    <Slate editor={editor} value={value} onChange={onEditorChange(value)}>
+    <Slate editor={editor} value={value} onChange={onEditorChange}>
       <Editable></Editable>
     </Slate>
   );
