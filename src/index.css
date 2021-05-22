@@ -12,9 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-.page {
-  max-width: 70ch;
-  min-height: 700px;
-  background-color: #fff;
-}
