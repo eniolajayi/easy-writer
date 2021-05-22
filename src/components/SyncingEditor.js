@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-// Import the Slate editor factory.
 import { createEditor } from "slate";
-// Import the Slate components
 import { Slate, Editable, withReact } from "slate-react";
 import io from "socket.io-client";
 
@@ -16,18 +14,12 @@ const getServerUrl = () => {
 const socket = io(getServerUrl());
 
 const SyncingEditor = ({ groupId }) => {
-  // We create state for what we pass into editor
   const [value, setValue] = useState([]);
-  // create id to identify each editor
-  // (we can know which editor is emitting an event)
   const id = useRef(`${uuidv4()}`);
-  //
   const editorRef = useRef();
   if (!editorRef.current) editorRef.current = withReact(createEditor());
   const editor = editorRef.current;
   const remote = useRef(false);
-  // Render slate context
-  // then add editable component inside context
   useEffect(() => {
     // TODO bug : editor is crashing whenever you try to enter a new line
     // start here :
@@ -61,50 +53,44 @@ const SyncingEditor = ({ groupId }) => {
     };
   }, [editor, groupId]);
 
+  const getFilteredOperations = (editorOperations) => {
+    return editorOperations.filter(
+      (operation) =>
+        operation.type !== "set_selection" &&
+        operation.type !== "set_value" &&
+        (!operation.data || !operation.data.source)
+    );
+  };
+
+  const addSourceToOperation = (editorOperations) => {
+    return editorOperations.map((operation) => ({
+      ...operation,
+      data: { source: id.current },
+    }));
+  };
+
+  const getProccessedOperations = () => {
+    let operationCollection = editor.operations;
+    let filteredOperations = getFilteredOperations(operationCollection);
+    return addSourceToOperation(filteredOperations);
+  };
+
+  const onEditorChange = (newValue) => {
+    setValue(newValue);
+    if (getProccessedOperations().length && !remote.current) {
+      socket.emit("new-operations", {
+        editorId: id.current,
+        operations: getProccessedOperations(),
+        value: newValue,
+        groupId,
+      });
+    }
+  };
+
   return (
-    <Slate
-      editor={editor}
-      value={value}
-      onChange={(newValue) => {
-        setValue(newValue);
-        const ops = editor.operations;
-        // filter through and remove unnecesary operations
-        const filteredOps = ops.filter((o) => {
-          return (
-            o.type !== "set_selection" &&
-            o.type !== "set_value" &&
-            (!o.data || !o.data.source)
-          );
-        });
-        // add the corresponding source (where the operation is coming from)
-        const opsWithSource = filteredOps.map((o) => {
-          return { ...o, data: { source: id.current } };
-        });
-        // Don't emit if the array is empty and the change
-        // was local to the editor then we emit the change
-        if (opsWithSource.length && !remote.current) {
-          socket.emit("new-operations", {
-            editorId: id.current,
-            operations: opsWithSource,
-            value: newValue,
-            groupId,
-          });
-        }
-      }}
-    >
-      <Editable placeholder="Start typing here..."></Editable>
+    <Slate editor={editor} value={value} onChange={onEditorChange(value)}>
+      <Editable></Editable>
     </Slate>
   );
 };
-
-/**
- * Basically whats happening with the sockets
- * is whenever a change is made in the editor
- * it is going to emit a change to the server
- *
- * then the server is going to listen for those
- * changes and then it will emit a remote change
- * which will then be broadcasted to all editor
- * instances
- */
 export default SyncingEditor;
