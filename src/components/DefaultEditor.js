@@ -1,5 +1,6 @@
 import React from "react";
 import { Slate, Editable } from "slate-react";
+import styled from "styled-components";
 const EditorContainer = styled.section`
   background-color: #fff;
   padding: 1.2rem;

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { createEditor } from "slate";
-import { Slate, Editable, withReact } from "slate-react";
+import { withReact } from "slate-react";
 import io from "socket.io-client";
+import DefaultEditor from "./DefaultEditor";
 
 const getServerUrl = () => {
   if (process.env.NODE_ENV !== "development") {
@@ -88,9 +89,11 @@ const SyncingEditor = ({ groupId }) => {
   };
 
   return (
-    <Slate editor={editor} value={value} onChange={onEditorChange}>
-      <Editable></Editable>
-    </Slate>
+    <DefaultEditor
+      editor={editor}
+      value={value}
+      onChange={onEditorChange}
+    ></DefaultEditor>
   );
 };
 export default SyncingEditor;
