@@ -1,7 +1,7 @@
 import React from "react";
 import { Slate, Editable } from "slate-react";
 import styled from "styled-components";
-const EditorContainer = styled.section`
+const PaperStyle = styled.section`
   background-color: #fff;
   padding: 1.2rem;
   max-width: 80%;
@@ -9,14 +9,14 @@ const EditorContainer = styled.section`
   margin: 0 auto;
   box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
 `;
-const Editor = ({ editor, value, onChange }) => {
+const Paper = ({ editor, value, onChange }) => {
   return (
-    <EditorContainer>
+    <PaperStyle>
       <Slate editor={editor} value={value} onChange={onChange}>
         <Editable></Editable>
       </Slate>
-    </EditorContainer>
+    </PaperStyle>
   );
 };
 
-export default Editor;
+export default Paper;
