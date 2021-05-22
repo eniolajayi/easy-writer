@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createEditor } from "slate";
 import { withReact } from "slate-react";
 import io from "socket.io-client";
-import Editor from "./Editor";
+import Paper from "./Paper";
 
 const getServerUrl = () => {
   if (process.env.NODE_ENV !== "development") {
@@ -14,9 +14,14 @@ const getServerUrl = () => {
 };
 const socket = io(getServerUrl());
 
-const SyncingEditor = ({ groupId }) => {
+const SyncingEditor = ({
+  match: {
+    params: { id },
+  },
+}) => {
+  let groupId = id;
   const [value, setValue] = useState([]);
-  const id = useRef(`${uuidv4()}`);
+  const editorId = useRef(`${uuidv4()}`);
   const editorRef = useRef();
   if (!editorRef.current) editorRef.current = withReact(createEditor());
   const editor = editorRef.current;
@@ -42,8 +47,8 @@ const SyncingEditor = ({ groupId }) => {
       });
     const eventName = `new-remote-operations-${groupId}`;
     socket.on(eventName, (data) => {
-      const { editorId, operations } = data;
-      if (id.current !== editorId) {
+      const { incomingId, operations } = data;
+      if (editorId.current !== incomingId) {
         remote.current = true;
         operations.forEach((operation) => editor.apply(operation));
         remote.current = false;
@@ -66,7 +71,7 @@ const SyncingEditor = ({ groupId }) => {
   const addSourceToOperation = (editorOperations) => {
     return editorOperations.map((operation) => ({
       ...operation,
-      data: { source: id.current },
+      data: { source: editorId.current },
     }));
   };
 
@@ -80,7 +85,7 @@ const SyncingEditor = ({ groupId }) => {
     setValue(newValue);
     if (getProccessedOperations().length && !remote.current) {
       socket.emit("new-operations", {
-        editorId: id.current,
+        editorId: editorId.current,
         operations: getProccessedOperations(),
         value: newValue,
         groupId,
@@ -89,7 +94,7 @@ const SyncingEditor = ({ groupId }) => {
   };
 
   return (
-    <Editor editor={editor} value={value} onChange={onEditorChange}></Editor>
+    <Paper editor={editor} value={value} onChange={onEditorChange}></Paper>
   );
 };
 export default SyncingEditor;
