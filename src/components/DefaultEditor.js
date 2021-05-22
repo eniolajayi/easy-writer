@@ -8,7 +8,7 @@ const EditorContainer = styled.section`
   min-width: auto;
   margin: 0 auto;
 `;
-export default DefaultEditor = ({ editor, value, onChange }) => {
+const DefaultEditor = ({ editor, value, onChange }) => {
   return (
     <EditorContainer>
       <Slate editor={editor} value={value} onChange={onChange}>
@@ -17,3 +17,5 @@ export default DefaultEditor = ({ editor, value, onChange }) => {
     </EditorContainer>
   );
 };
+
+export default DefaultEditor;
