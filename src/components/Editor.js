@@ -9,7 +9,7 @@ const EditorContainer = styled.section`
   margin: 0 auto;
   box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
 `;
-const DefaultEditor = ({ editor, value, onChange }) => {
+const Editor = ({ editor, value, onChange }) => {
   return (
     <EditorContainer>
       <Slate editor={editor} value={value} onChange={onChange}>
@@ -19,4 +19,4 @@ const DefaultEditor = ({ editor, value, onChange }) => {
   );
 };
 
-export default DefaultEditor;
+export default Editor;

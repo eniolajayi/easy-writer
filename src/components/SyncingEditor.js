@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import { createEditor } from "slate";
 import { withReact } from "slate-react";
 import io from "socket.io-client";
-import DefaultEditor from "./DefaultEditor";
+import Editor from "./Editor";
 
 const getServerUrl = () => {
   if (process.env.NODE_ENV !== "development") {
@@ -89,11 +89,7 @@ const SyncingEditor = ({ groupId }) => {
   };
 
   return (
-    <DefaultEditor
-      editor={editor}
-      value={value}
-      onChange={onEditorChange}
-    ></DefaultEditor>
+    <Editor editor={editor} value={value} onChange={onEditorChange}></Editor>
   );
 };
 export default SyncingEditor;
