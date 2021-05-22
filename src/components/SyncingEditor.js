@@ -85,7 +85,7 @@ const SyncingEditor = ({
     setValue(newValue);
     if (getProccessedOperations().length && !remote.current) {
       socket.emit("new-operations", {
-        editorId: editorId.current,
+        incomingId: editorId.current,
         operations: getProccessedOperations(),
         value: newValue,
         groupId,
