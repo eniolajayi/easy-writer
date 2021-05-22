@@ -7,6 +7,7 @@ const EditorContainer = styled.section`
   max-width: 80%;
   min-width: auto;
   margin: 0 auto;
+  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
 `;
 const DefaultEditor = ({ editor, value, onChange }) => {
   return (
