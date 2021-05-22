@@ -7,7 +7,7 @@ const PaperStyle = styled.section`
   max-width: 80%;
   min-width: auto;
   margin: 0 auto;
-  box-shadow: 0px 1px 3px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 5px 11px 1px rgb(46 46 46 / 10%);
 `;
 const Paper = ({ editor, value, onChange }) => {
   return (
