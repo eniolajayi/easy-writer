@@ -1,11 +1,13 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import NavBar from "./components/Layout/NavBar";
 import SyncingEditor from "./components/SyncingEditor";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <NavBar />
       <Route
         path="/"
         exact
