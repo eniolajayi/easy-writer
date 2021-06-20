@@ -19,10 +19,14 @@ const Header = styled.header`
   }
 `;
 
-const NavBar = () => {
+const NavBar = ({ id }) => {
+  console.log(id);
   return (
     <Header>
       <div className="logo">EasyWriter.</div>
+      <div className="header__info">
+        DocumentID <span className="id">{id}</span>
+      </div>
     </Header>
   );
 };

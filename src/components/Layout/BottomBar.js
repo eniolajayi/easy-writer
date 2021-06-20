@@ -3,9 +3,10 @@ import styled from "styled-components";
 
 const Footer = styled.footer`
   width: 100%;
-  height: 50px;
+  height: 70px;
   background-color: #fff;
-  position: absolute;
+  position: fixed;
+  border: 1px dashed #000;
   bottom: 0;
   left: 0;
   z-index: 99;
