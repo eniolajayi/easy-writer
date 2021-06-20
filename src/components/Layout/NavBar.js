@@ -4,18 +4,44 @@ import styled from "styled-components";
 const Header = styled.header`
   height: auto;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.65rem 1.5rem;
   background-color: #fff;
   box-shadow: -1px 2px 2px 1px rgb(139 139 139 / 10%);
-  /* position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999; */
   .logo {
     font-size: 1.2rem;
     font-weight: 700;
     color: #222;
     letter-spacing: -1px;
+  }
+  .header__info {
+    text-align: center;
+    font-size: 0.625rem;
+    .title {
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .id {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: #212121;
+    }
+  }
+  .header__btn {
+    min-width: 110px;
+    height: 35px;
+    border-radius: 0.625rem;
+    line-height: 35px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: #659df2;
+    color: #fff;
+    box-shadow: 0 4px 3px 2px rgb(139 139 139 / 10%);
   }
 `;
 
@@ -25,8 +51,10 @@ const NavBar = ({ id }) => {
     <Header>
       <div className="logo">EasyWriter.</div>
       <div className="header__info">
-        DocumentID <span className="id">{id}</span>
+        <div className="title">Document-ID</div>
+        <div className="id">{id}</div>
       </div>
+      <div className="header__btn">Copy Url</div>
     </Header>
   );
 };
