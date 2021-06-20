@@ -7,7 +7,7 @@ const PaperStyle = styled.section`
   padding: 1.2rem;
   width: 90%;
   min-height: 700px;
-  margin: 7rem auto 1rem auto;
+  margin: 4rem auto 1rem auto;
   box-shadow: 0px 5px 11px 1px rgb(46 46 46 / 10%);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 16.5px;

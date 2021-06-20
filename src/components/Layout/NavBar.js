@@ -31,7 +31,7 @@ const Header = styled.header`
     }
   }
   .header__btn {
-    min-width: 110px;
+    min-width: 90px;
     height: 35px;
     border-radius: 0.625rem;
     line-height: 35px;
@@ -39,14 +39,17 @@ const Header = styled.header`
     cursor: pointer;
     font-weight: 600;
     font-size: 0.9rem;
-    background-color: #659df2;
-    color: #fff;
-    box-shadow: 0 4px 3px 2px rgb(139 139 139 / 10%);
+    background-color: #000;
+    color: #eee;
+    box-shadow: 0 2px 3px 2px rgb(0 0 0 / 10%);
+    :active {
+      background-color: #333;
+      box-shadow: none;
+    }
   }
 `;
 
 const NavBar = ({ id }) => {
-  console.log(id);
   return (
     <Header>
       <div className="logo">EasyWriter.</div>
