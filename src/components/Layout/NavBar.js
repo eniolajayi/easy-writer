@@ -6,11 +6,16 @@ const Header = styled.header`
   width: 100%;
   padding: 0.65rem 1.5rem;
   background-color: #fff;
-  box-shadow: -1px 6px 4px 3px rgb(139 139 139 / 10%);
+  box-shadow: -1px 2px 2px 1px rgb(139 139 139 / 10%);
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999; */
   .logo {
     font-size: 1.2rem;
-    font-weight: 600;
-    color: #0d6efd;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: -1px;
   }
 `;
 

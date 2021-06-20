@@ -94,7 +94,9 @@ const SyncingEditor = ({
   };
 
   return (
-    <Paper editor={editor} value={value} onChange={onEditorChange}></Paper>
+    <div>
+      <Paper editor={editor} value={value} onChange={onEditorChange}></Paper>
+    </div>
   );
 };
 export default SyncingEditor;
