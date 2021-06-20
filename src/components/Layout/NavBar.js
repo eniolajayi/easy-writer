@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import Alert from "./Alert";
 
 const Header = styled.header`
   height: auto;
@@ -50,15 +51,49 @@ const Header = styled.header`
 `;
 
 const NavBar = ({ id }) => {
+  const [open, setOpen] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const copyToClipBoard = async (copyUrl) => {
+    if (navigator.clipboard.writeText) {
+      try {
+        await navigator.clipboard.writeText(copyUrl);
+        setCopySuccess(true);
+      } catch {
+        setCopySuccess(false);
+      }
+    }
+  };
   return (
-    <Header>
-      <div className="logo">EasyWriter.</div>
-      <div className="header__info">
-        <div className="title">Document-ID</div>
-        <div className="id">{id}</div>
-      </div>
-      <div className="header__btn">Copy Url</div>
-    </Header>
+    <>
+      <Header>
+        <div className="logo">EasyWriter.</div>
+        <div className="header__info">
+          <div className="title">Document-ID</div>
+          <div className="id">{id}</div>
+        </div>
+        <div
+          className="header__btn"
+          onClick={() => {
+            copyToClipBoard(`/group/${id}`);
+            setOpen(true);
+            setTimeout(() => {
+              setOpen(false);
+            }, 5000);
+          }}
+        >
+          Copy Url
+        </div>
+      </Header>
+      {open ? (
+        copySuccess ? (
+          <Alert>Copied Url!</Alert>
+        ) : (
+          <Alert>~Could not copy!~</Alert>
+        )
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 

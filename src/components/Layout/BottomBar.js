@@ -27,7 +27,7 @@ function BottomBar() {
     <Footer>
       <div className="info">
         <span className="icon">Note:</span>
-        <p class="content">
+        <p className="content">
           This app does not have a strong serve side or storage support yet. It
           was made for learning purposes only. It may or may not support these
           features in the future.
