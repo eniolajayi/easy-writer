@@ -20,6 +20,9 @@ const Header = styled.header`
   .header__info {
     text-align: center;
     font-size: 0.625rem;
+    @media (max-width: 720px) {
+      display: none;
+    }
     .title {
       font-weight: 700;
       text-transform: uppercase;

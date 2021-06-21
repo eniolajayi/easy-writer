@@ -11,7 +11,9 @@ const PaperStyle = styled.section`
   box-shadow: 0px 5px 11px 1px rgb(46 46 46 / 10%);
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-size: 16.5px;
-
+  @media (max-width: 720px) {
+    margin-top: 2rem;
+  }
   @media (min-width: 576px) {
     max-width: 440px;
   }
