@@ -77,7 +77,7 @@ const NavBar = ({ id }) => {
         <div
           className="header__btn"
           onClick={() => {
-            copyToClipBoard(`/group/${id}`);
+            copyToClipBoard(`${process.env.PUBLIC_URL}/group/${id}`);
             setOpen(true);
             setTimeout(() => {
               setOpen(false);
