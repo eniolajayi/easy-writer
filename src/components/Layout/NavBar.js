@@ -78,7 +78,7 @@ const NavBar = ({ id }) => {
             setOpen(true);
             setTimeout(() => {
               setOpen(false);
-            }, 5000);
+            }, 4000);
           }}
         >
           Copy Url
