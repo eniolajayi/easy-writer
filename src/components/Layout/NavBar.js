@@ -86,9 +86,9 @@ const NavBar = ({ id }) => {
       </Header>
       {open ? (
         copySuccess ? (
-          <Alert>Copied url to clipboard!</Alert>
+          <Alert type="success">Copied url to clipboard!</Alert>
         ) : (
-          <Alert>~Could not copy!~</Alert>
+          <Alert type="danger">~Could not copy!~</Alert>
         )
       ) : (
         <></>

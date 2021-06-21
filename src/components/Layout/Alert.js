@@ -6,14 +6,13 @@ const AlertWrapper = styled.div`
   min-height: 45px;
   padding: 1.2rem;
   font-size: 1rem;
-  background-color: #000;
-  /* background-color: success ?  #000 : #000; */
+  background-color: ${(props) => (props.type === "danger" ? "#f32" : "#000")};
   color: #fff;
 `;
 
-const Alert = ({ className, children, success }) => {
+const Alert = ({ className, children, type }) => {
   return (
-    <AlertWrapper success={success}>
+    <AlertWrapper type={type}>
       <div className={className}>{children}</div>
     </AlertWrapper>
   );
