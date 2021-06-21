@@ -11,6 +11,9 @@ const Header = styled.header`
   padding: 0.65rem 1.5rem;
   background-color: #fff;
   box-shadow: -1px 2px 2px 1px rgb(139 139 139 / 10%);
+  @media (max-width: 720px) {
+    padding: 0.65rem 0.9rem;
+  }
   .logo {
     font-size: 1.2rem;
     font-weight: 700;
