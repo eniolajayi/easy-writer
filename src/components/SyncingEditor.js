@@ -4,14 +4,8 @@ import { createEditor } from "slate";
 import { withReact } from "slate-react";
 import io from "socket.io-client";
 import Paper from "./Paper";
+import { getServerUrl } from "../utils/server";
 
-const getServerUrl = () => {
-  if (process.env.NODE_ENV !== "development") {
-    return process.env.REACT_APP_SERVER_URL;
-  } else {
-    return "http://localhost:4000";
-  }
-};
 const socket = io(getServerUrl());
 
 const SyncingEditor = ({
