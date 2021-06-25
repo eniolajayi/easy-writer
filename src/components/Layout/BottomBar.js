@@ -14,7 +14,7 @@ const Footer = styled.footer`
   z-index: 12;
   box-shadow: -1px -2px 2px 1px rgb(139 139 139 / 10%);
   .controls {
-    max-width: 500px;
+    max-width: 400px;
     margin: 0 auto;
     height: auto;
     background: #fbfbfb;
@@ -22,12 +22,19 @@ const Footer = styled.footer`
     align-items: stretch;
     justify-content: space-between;
     .btn {
-      flex: 1 0 auto;
-      width: 40px;
+      flex: 0 0 100px;
       height: 40px;
       border: 1px solid black;
       border-radius: 0.625rem;
       background-color: #fff;
+      cursor: pointer;
+      transition: background-color 500ms ease-in-out;
+      :active {
+        svg {
+          fill: #fff;
+        }
+        background-color: #000;
+      }
 
       svg {
         width: 16px;
