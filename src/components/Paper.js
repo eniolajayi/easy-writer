@@ -1,5 +1,4 @@
-import React, { useCallback } from "react";
-import { Editor } from "slate";
+import React from "react";
 import { Slate, Editable } from "slate-react";
 import styled from "styled-components";
 const PaperStyle = styled.section`
@@ -31,48 +30,11 @@ const PaperStyle = styled.section`
   }
 `;
 
-const format = "bold";
-const isMarkActive = (editor, format) => {
-  const marks = Editor.marks(editor);
-  return marks ? marks[format] === true : false;
-};
-const toggleMark = (editor, format) => {
-  const isActive = isMarkActive(editor, format);
-  if (isActive) {
-    Editor.removeMark(editor, format);
-  } else {
-    Editor.addMark(editor, format, true);
-  }
-};
-
 const Paper = ({ editor, value, onChange }) => {
-  const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-
-  const Leaf = ({ attributes, children, leaf }) => {
-    if (leaf.bold) {
-      children = <strong>{children}</strong>;
-    }
-    if (leaf.italic) {
-      children = <strong>{children}</strong>;
-    }
-    if (leaf.underline) {
-      children = <strong>{children}</strong>;
-    }
-    return <span {...attributes}>{children}</span>;
-  };
-
   return (
     <PaperStyle>
-      <button
-        onClick={() => {
-          toggleMark(editor, format);
-          console.log("clicked");
-        }}
-      >
-        Bold
-      </button>
       <Slate editor={editor} value={value} onChange={onChange}>
-        <Editable renderLeaf={renderLeaf} spellCheck></Editable>
+        <Editable spellCheck></Editable>
       </Slate>
     </PaperStyle>
   );
