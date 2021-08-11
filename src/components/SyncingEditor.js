@@ -51,7 +51,7 @@ const SyncingEditor = ({
     return () => {
       socket.off(eventName);
     };
-  }, [editor, groupId]);
+  });
 
   const getFilteredOperations = (editorOperations) => {
     return editorOperations.filter(

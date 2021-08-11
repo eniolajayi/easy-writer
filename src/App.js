@@ -4,22 +4,25 @@ import { v4 as uuidv4 } from "uuid";
 import NavBar from "./components/Layout/NavBar";
 import SyncingEditor from "./components/SyncingEditor";
 import BottomBar from "./components/Layout/BottomBar";
+import EditorProvider from "./context/EditorProvider";
 
 const App = () => {
   let documentId = uuidv4();
   return (
-    <BrowserRouter>
-      <NavBar id={documentId} />
-      <Route
-        path="/"
-        exact
-        render={() => {
-          return <Redirect to={`/group/${documentId}`} />;
-        }}
-      ></Route>
-      <Route path="/group/:id" component={SyncingEditor} />
-      <BottomBar />
-    </BrowserRouter>
+    <EditorProvider>
+      <BrowserRouter>
+        <NavBar id={documentId} />
+        <Route
+          path="/"
+          exact
+          render={() => {
+            return <Redirect to={`/group/${documentId}`} />;
+          }}
+        ></Route>
+        <Route path="/group/:id" component={SyncingEditor} />
+        <BottomBar />
+      </BrowserRouter>
+    </EditorProvider>
   );
 };
 export default App;
