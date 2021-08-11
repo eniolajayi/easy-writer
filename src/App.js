@@ -5,7 +5,6 @@ import NavBar from "./components/Layout/NavBar";
 import SyncingEditor from "./components/SyncingEditor";
 import BottomBar from "./components/Layout/BottomBar";
 import EditorProvider from "./context/EditorProvider";
-import EditorContext from "./context/EditorContext";
 import UrlNotFound from "./pages/UrlNotFound";
 
 const App = () => {
