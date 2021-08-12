@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import EditorContext from "../../context/EditorContext";
 import Icon from "../Icon";
 
 const Footer = styled.footer`
@@ -80,39 +81,59 @@ const ActionButton = ({ children, onClick, ...props }) => {
     </button>
   );
 };
+
 function BottomBar() {
   const [open, setOpen] = useState(true);
   return (
-    <>
-      <Footer>
-        <div className="controls">
-          <ActionButton className="btn">
-            <Icon type="bold" />
-          </ActionButton>
-          <ActionButton className="btn">
-            <Icon type="italic" />
-          </ActionButton>
-          <ActionButton className="btn">
-            <Icon type="underline" />
-          </ActionButton>
-        </div>
-      </Footer>
-      <Info open={open}>
-        <span className="icon">Note:</span>
-        <p className="content">
-          This app does not have a strong serve side or storage support yet. It
-          was made for learning purposes only. It may or may not support these
-          features in the future.
-          <span
-            onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Ok, Close Alert
-          </span>
-        </p>
-      </Info>
-    </>
+    <EditorContext.Consumer>
+      {(context) => (
+        <>
+          <Footer>
+            <div className="controls">
+              <ActionButton
+                className="btn"
+                onClick={() => {
+                  context.toggleFormat("bold");
+                }}
+              >
+                <Icon type="bold" />
+              </ActionButton>
+              <ActionButton
+                className="btn"
+                onClick={() => {
+                  context.toggleFormat("italic");
+                }}
+              >
+                <Icon type="italic" />
+              </ActionButton>
+              <ActionButton
+                className="btn"
+                onClick={() => {
+                  context.toggleFormat("underline");
+                }}
+              >
+                <Icon type="underline" />
+              </ActionButton>
+            </div>
+          </Footer>
+          <Info open={open}>
+            <span className="icon">Note:</span>
+            <p className="content">
+              This app does not have a strong serve side or storage support yet.
+              It was made for learning purposes only. It may or may not support
+              these features in the future.
+              <span
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                Ok, Close Alert
+              </span>
+            </p>
+          </Info>
+        </>
+      )}
+    </EditorContext.Consumer>
   );
 }
 

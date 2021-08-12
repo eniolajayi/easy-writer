@@ -30,11 +30,11 @@ const PaperStyle = styled.section`
   }
 `;
 
-const Paper = ({ editor, value, onChange }) => {
+const Paper = ({ editor, value, onChange, renderLeaf }) => {
   return (
     <PaperStyle>
       <Slate editor={editor} value={value} onChange={onChange}>
-        <Editable spellCheck></Editable>
+        <Editable renderLeaf={renderLeaf} spellCheck></Editable>
       </Slate>
     </PaperStyle>
   );
