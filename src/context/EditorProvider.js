@@ -48,6 +48,9 @@ const EditorProvider = (props) => {
   if (!editorRef.current) editorRef.current = withReact(createEditor());
   const editor = editorRef.current;
   const editorRemote = useRef(false);
+  const render = useCallback((props) => {
+    return <Leaf {...props} />;
+  }, []);
 
   return (
     <EditorContext.Provider
