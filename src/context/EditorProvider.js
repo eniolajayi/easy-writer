@@ -2,37 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { createEditor } from "slate";
 import { withReact } from "slate-react";
 import { v4 as uuidv4 } from "uuid";
+import Leaf, { toggleMark } from "../components/Leaf";
 import EditorContext from "./EditorContext";
 import { getInitialData } from "./init";
-
-// const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-
-// const Leaf = ({ attributes, children, leaf }) => {
-//   if (leaf.bold) {
-//     children = <strong>{children}</strong>;
-//   }
-//   if (leaf.italic) {
-//     children = <strong>{children}</strong>;
-//   }
-//   if (leaf.underline) {
-//     children = <strong>{children}</strong>;
-//   }
-//   return <span {...attributes}>{children}</span>;
-// };
-
-// const format = "bold";
-// const isMarkActive = (editor, format) => {
-//   const marks = Editor.marks(editor);
-//   return marks ? marks[format] === true : false;
-// };
-// const toggleMark = (editor, format) => {
-//   const isActive = isMarkActive(editor, format);
-//   if (isActive) {
-//     Editor.removeMark(editor, format);
-//   } else {
-//     Editor.addMark(editor, format, true);
-//   }
-// };
 
 const EditorProvider = (props) => {
   const [content, setContent] = useState([]);
@@ -65,6 +37,10 @@ const EditorProvider = (props) => {
         setContent: (value) => {
           setContent(value);
         },
+        toggleFormat: (formatType) => {
+          toggleMark(editor, formatType);
+        },
+        renderLeaf: render,
       }}
     >
       {props.children}
