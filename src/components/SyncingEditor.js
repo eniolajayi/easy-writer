@@ -6,11 +6,7 @@ import EditorContext from "../context/EditorContext";
 
 // const socket = io(getServerUrl());
 
-const SyncingEditor = ({
-  match: {
-    params: { id },
-  },
-}) => {
+const SyncingEditor = () => {
   useEffect(() => {
     // TODO bug : editor is crashing whenever you try to enter a new line
     // start here :
@@ -85,6 +81,7 @@ const SyncingEditor = ({
           editor={context.editor}
           value={context.getContent()}
           onChange={context.setContent}
+          renderLeaf={context.renderLeaf}
         ></Paper>
       )}
     </EditorContext.Consumer>
