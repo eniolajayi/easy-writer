@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createEditor } from "slate";
 import { withReact } from "slate-react";
 import { v4 as uuidv4 } from "uuid";
